@@ -17,10 +17,18 @@ class PostsController extends Controller
 
     public function create()
     {
+        return view('posts.create');
     }
 
     public function store(Request $request)
     {
-        
+        $params = $request->validate([
+            'title' => 'required|max:50',
+            'body' => 'required|max:2000',
+        ]);
+
+        Post::create($params);
+
+        return redirect()->route('top');
     }
 }
